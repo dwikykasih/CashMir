@@ -18,18 +18,48 @@ import javax.swing.table.*;
  */
 public class riwayat extends javax.swing.JFrame {
     
-<<<<<<< HEAD
-   
-
-    public riwayat() throws SQLException {
-        initComponents();   
-=======
-    
+    private DefaultTableModel model;
+    public Connection conn;
+    public ResultSet rs;
+    public PreparedStatement pst;
+    static void setModel(DefaultTableModel tabModel) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     public riwayat() throws SQLException {
         initComponents();
-
->>>>>>> 6b444c397148dc571b6012beb6e43b31cf26aa9c
+        conn = null;
+        conn = DriverManager.getConnection("jdbc:mysql://localhost/cashmir","root","");
+        UpdateTabel();
+        setLocationRelativeTo(null);
+    }
+    
+     private void UpdateTabel() {
+        try {
+            String sql = "SELECT * FROM kasir order by idPelanggan asc";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            DefaultTableModel dtm = (DefaultTableModel) tblKasir.getModel();
+        dtm.setRowCount(0);
+        String [] data = new String[8];
+        int i = 1;
+       
+        while(rs.next()) {
+            data[0] = rs.getString("idPelanggan");
+            data[1] = rs.getString("nama");
+            data[2] = rs.getString("makanan");
+            data[3] = rs.getString("minuman");
+            data[4] = rs.getString("jml_makanan");
+            data[5] = rs.getString("jml_minuman");
+            data[6] = rs.getString("harga");
+            data[7] = rs.getString("uang");
+            dtm.addRow(data);
+            i++;
+        }
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     /**
@@ -47,11 +77,8 @@ public class riwayat extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnKeluar = new javax.swing.JButton();
-<<<<<<< HEAD
-=======
         btnHapus = new javax.swing.JButton();
         idPelanggan = new javax.swing.JLabel();
->>>>>>> 6b444c397148dc571b6012beb6e43b31cf26aa9c
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,8 +119,6 @@ public class riwayat extends javax.swing.JFrame {
                 btnKeluarActionPerformed(evt);
             }
         });
-<<<<<<< HEAD
-=======
 
         btnHapus.setBackground(new java.awt.Color(200, 30, 30));
         btnHapus.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
@@ -106,7 +131,6 @@ public class riwayat extends javax.swing.JFrame {
 
         idPelanggan.setFont(new java.awt.Font("Comic Sans MS", 2, 12)); // NOI18N
         idPelanggan.setText("id:");
->>>>>>> 6b444c397148dc571b6012beb6e43b31cf26aa9c
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,16 +152,12 @@ public class riwayat extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-<<<<<<< HEAD
-                        .addComponent(btnKeluar)
-=======
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(idPelanggan)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnHapus)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnKeluar)))
->>>>>>> 6b444c397148dc571b6012beb6e43b31cf26aa9c
                         .addGap(12, 12, 12)))
                 .addContainerGap())
         );
@@ -148,12 +168,6 @@ public class riwayat extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-<<<<<<< HEAD
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnKeluar, javax.swing.GroupLayout.Alignment.TRAILING))
-=======
                 .addGap(19, 19, 19)
                 .addComponent(idPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
@@ -162,7 +176,6 @@ public class riwayat extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnKeluar)
                         .addComponent(btnHapus)))
->>>>>>> 6b444c397148dc571b6012beb6e43b31cf26aa9c
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -176,13 +189,29 @@ public class riwayat extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnKeluarActionPerformed
 
-<<<<<<< HEAD
-=======
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
-  
+   
+        int ok=JOptionPane.showConfirmDialog(null,"Apakah Yakin Mendelete record ini???", "Confirmation",JOptionPane.YES_NO_CANCEL_OPTION);
+       if (ok==0)
+       {
+        try
+         {
+            String sql="delete from kasir where idPelanggan='"++"'";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            DefaultTableModel dtm = (DefaultTableModel) tblKasir.getModel();
+            PreparedStatement st=conn.prepareStatement(sql);
+            st.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Delete Data Sukses");
+         }
+        catch (Exception e)
+        {
+            JOptionPane.showMessageDialog(null, "Delete Data Gagal");
+        }
+       }
+       
     }//GEN-LAST:event_btnHapusActionPerformed
 
->>>>>>> 6b444c397148dc571b6012beb6e43b31cf26aa9c
     private void tblKasirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKasirMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_tblKasirMouseClicked
@@ -227,13 +256,9 @@ public class riwayat extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-<<<<<<< HEAD
-    private javax.swing.JButton btnKeluar;
-=======
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnKeluar;
     private javax.swing.JLabel idPelanggan;
->>>>>>> 6b444c397148dc571b6012beb6e43b31cf26aa9c
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel8;
