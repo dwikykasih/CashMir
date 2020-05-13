@@ -35,31 +35,7 @@ public class riwayat extends javax.swing.JFrame {
     }
     
      private void UpdateTabel() {
-        try {
-            String sql = "SELECT * FROM kasir order by idPelanggan asc";
-            pst = conn.prepareStatement(sql);
-            rs = pst.executeQuery();
-            DefaultTableModel dtm = (DefaultTableModel) tblKasir.getModel();
-        dtm.setRowCount(0);
-        String [] data = new String[8];
-        int i = 1;
-       
-        while(rs.next()) {
-            data[0] = rs.getString("idPelanggan");
-            data[1] = rs.getString("nama");
-            data[2] = rs.getString("makanan");
-            data[3] = rs.getString("minuman");
-            data[4] = rs.getString("jml_makanan");
-            data[5] = rs.getString("jml_minuman");
-            data[6] = rs.getString("harga");
-            data[7] = rs.getString("uang");
-            dtm.addRow(data);
-            i++;
-        }
-        }
-        catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
+        
     }
 
     /**
@@ -77,7 +53,6 @@ public class riwayat extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnKeluar = new javax.swing.JButton();
-        btnHapus = new javax.swing.JButton();
         idPelanggan = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -120,15 +95,6 @@ public class riwayat extends javax.swing.JFrame {
             }
         });
 
-        btnHapus.setBackground(new java.awt.Color(200, 30, 30));
-        btnHapus.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
-        btnHapus.setText("Hapus");
-        btnHapus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHapusActionPerformed(evt);
-            }
-        });
-
         idPelanggan.setFont(new java.awt.Font("Comic Sans MS", 2, 12)); // NOI18N
         idPelanggan.setText("id:");
 
@@ -155,8 +121,7 @@ public class riwayat extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(idPelanggan)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnHapus)
-                                .addGap(18, 18, 18)
+                                .addGap(86, 86, 86)
                                 .addComponent(btnKeluar)))
                         .addGap(12, 12, 12)))
                 .addContainerGap())
@@ -173,9 +138,7 @@ public class riwayat extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnKeluar)
-                        .addComponent(btnHapus)))
+                    .addComponent(btnKeluar, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -188,29 +151,6 @@ public class riwayat extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_btnKeluarActionPerformed
-
-    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
-   
-        int ok=JOptionPane.showConfirmDialog(null,"Apakah Yakin Mendelete record ini???", "Confirmation",JOptionPane.YES_NO_CANCEL_OPTION);
-       if (ok==0)
-       {
-        try
-         {
-            String sql="delete from kasir where idPelanggan='"++"'";
-            pst = conn.prepareStatement(sql);
-            rs = pst.executeQuery();
-            DefaultTableModel dtm = (DefaultTableModel) tblKasir.getModel();
-            PreparedStatement st=conn.prepareStatement(sql);
-            st.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Delete Data Sukses");
-         }
-        catch (Exception e)
-        {
-            JOptionPane.showMessageDialog(null, "Delete Data Gagal");
-        }
-       }
-       
-    }//GEN-LAST:event_btnHapusActionPerformed
 
     private void tblKasirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKasirMouseClicked
         // TODO add your handling code here:
@@ -256,7 +196,6 @@ public class riwayat extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnKeluar;
     private javax.swing.JLabel idPelanggan;
     private javax.swing.JLabel jLabel1;
