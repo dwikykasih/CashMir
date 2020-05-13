@@ -35,7 +35,31 @@ public class riwayat extends javax.swing.JFrame {
     }
     
      private void UpdateTabel() {
-        
+        try {
+            String sql = "SELECT * FROM kasir order by idPelanggan asc";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            DefaultTableModel dtm = (DefaultTableModel) tblKasir.getModel();
+        dtm.setRowCount(0);
+        String [] data = new String[8];
+        int i = 1;
+       
+        while(rs.next()) {
+            data[0] = rs.getString("idPelanggan");
+            data[1] = rs.getString("nama");
+            data[2] = rs.getString("makanan");
+            data[3] = rs.getString("minuman");
+            data[4] = rs.getString("jml_makanan");
+            data[5] = rs.getString("jml_minuman");
+            data[6] = rs.getString("harga");
+            data[7] = rs.getString("uang");
+            dtm.addRow(data);
+            i++;
+        }
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     /**
